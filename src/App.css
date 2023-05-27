@@ -1,12 +1,22 @@
 .App {
   text-align: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
-
+.ant-popover{
+  display:none;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-
+font{
+  display:none;
+}
+.ant-tooltip-open{
+  display:none;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

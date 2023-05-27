@@ -1,0 +1,1 @@
+export const getImagePath = ( path = "/logo192.png") => `assets/image/${path}`;
