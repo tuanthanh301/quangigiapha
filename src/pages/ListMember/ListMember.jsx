@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-
-import { Button, Input, Modal, Space, Table, Tag } from "antd";
+import dayjs from 'dayjs';
+import { Button, DatePicker, Input, Modal, Space, Table, Tag } from "antd";
 import { ButtonCreate, ItemInfor } from "./listMemberStyle";
 import { useNavigate } from "react-router-dom";
 
@@ -70,7 +70,7 @@ const ListMember = () => {
     {
       key: "1",
       name: "Nguyễn Văn A",
-      dob: "30/01/1940",
+      dob: "1940/01/30",
       gen:"Nam",
       phone: "0969290646",
       tags: "Ông tổ",
@@ -82,7 +82,7 @@ const ListMember = () => {
     {
       key: "2",
       name: "Nguyễn Văn C",
-      dob: "30/01/1965",
+      dob: "1965/01/30",
       gen: "Nam",
       phone: "0969290646",
       tags: "Trưởng họ",
@@ -94,7 +94,7 @@ const ListMember = () => {
     {
       key: "3",
       name: "Nguyễn Văn E",
-      dob: "30/01/1967",
+      dob: "1967/01/30",
       gen: "Nam",
       phone: "0969290646",
       tags: "Phó họ",
@@ -106,7 +106,7 @@ const ListMember = () => {
     {
       key: "4",
       name: "Nguyễn Văn F",
-      dob: "30/01/1969",
+      dob: "1969/01/30",
       gen: "Nữ",
       phone: "0969290646",
       tags: "Thành viên",
@@ -116,7 +116,7 @@ const ListMember = () => {
       status: "Bình thường",
     },
   ]);
-
+  const dateFormat = 'YYYY/MM/DD';
   const handleDelete = (key) => {
     const newData = [...data];
     const index = newData
@@ -172,6 +172,7 @@ const ListMember = () => {
       >
         <ItemInfor>
           <Input
+
             className="input"
             onChange={(event) =>
               setNewMemberSelect({
@@ -181,12 +182,13 @@ const ListMember = () => {
             }
             placeholder="Enter name"
           />
-          <Input
+          <DatePicker
+              format="YYYY/MM/DD"
             className="input"
-            onChange={(event) =>
+            onChange={(date, dateString) =>
               setNewMemberSelect({
                 ...newMemberSelect,
-                dob: event.target.value,
+                dob: dateString,
               })
             }
             placeholder="Enter Date of Birth"
@@ -297,15 +299,16 @@ const ListMember = () => {
               value={memberSelect.name}
               placeholder="Enter name"
             />
-            <Input
-              onChange={(event) =>
+            <DatePicker
+               onChange={(date, dateString) =>
                 setMemberSelect({
                   ...memberSelect,
-                  dob: event.target.value,
+                  dob: dateString,
                 })
               }
               className="input"
-              value={memberSelect.dob}
+              value={dayjs(memberSelect.dob)}
+              format="YYYY/MM/DD"
               placeholder="Enter Date of Birth"
             />
             <Input
