@@ -13,9 +13,15 @@ const LoginPage = () => {
       <div className="line"></div>
       <Input className="user-login" size="large" placeholder="Username" />
       <Input className="user-login" size="large" placeholder="Password" />
-      <Button className="user-login" type="primary">Sign in</Button>
+      <Button className="user-login" type="primary">
+        Sign in
+      </Button>
       <div className="line mt2"></div>
-      <a href="">Forgot password</a>
+      <div className="">
+        <a href="">Forgot password</a>
+      </div>
+      <a href="http://localhost:3000/register" path="/register" >You dont't have an account? Create new account</a>
+
     </BackGroundLogin>
   );
 };
