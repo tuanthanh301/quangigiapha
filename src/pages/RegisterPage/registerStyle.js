@@ -19,5 +19,6 @@ export const BackGroundRegister = styled.div`
   }
   .error-feedback{
     color: red;
+    /* margin-top: 10px; */
   }
 `;
