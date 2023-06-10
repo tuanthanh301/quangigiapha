@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import dayjs from 'dayjs';
-import { Button, DatePicker, Input, Modal, Space, Table, Tag } from "antd";
+import dayjs from "dayjs";
+import { DatePicker, Input, Modal, Space, Table, Tag } from "antd";
 import { ButtonCreate, ItemInfor } from "./listMemberStyle";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { storeAddMember, storeDeleteMember, storeEditMember } from "../../store/database-reducer";
 
 const ListMember = () => {
   const columns = [
@@ -10,7 +11,7 @@ const ListMember = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <a href="#/">{text}</a>,
     },
     {
       title: "Date of Birth",
@@ -18,9 +19,9 @@ const ListMember = () => {
       key: "dob",
     },
     {
-        title:"Gender",
-        dataIndex:"gen",
-        key:"gen",
+      title: "Gender",
+      dataIndex: "gen",
+      key: "gen",
     },
     {
       title: "Phone Number",
@@ -41,6 +42,7 @@ const ListMember = () => {
       render: (_, record) => (
         <Space size="middle">
           <a
+            href="#/"
             onClick={() => {
               showModal();
               setMemberSelect(record);
@@ -48,8 +50,11 @@ const ListMember = () => {
           >
             Details
           </a>
-          <a onClick={() => handleDelete(record.key)}>Delete</a>
+          <a href="#/" onClick={() => handleDelete(record.key)}>
+            Delete
+          </a>
           <a
+            href="#/"
             onClick={() => {
               setIsEdit(true);
               setMemberSelect(record);
@@ -61,82 +66,40 @@ const ListMember = () => {
       ),
     },
   ];
+  const dispatch = useDispatch()
+  const data = useSelector(state => state.database.database)
+  const setData = (dataNew) => {
+  }
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
   const [memberSelect, setMemberSelect] = useState();
   const [newMemberSelect, setNewMemberSelect] = useState();
-  const [data, setData] = useState([
-    {
-      key: "1",
-      name: "Nguyễn Văn A",
-      dob: "1940/01/30",
-      gen:"Nam",
-      phone: "0969290646",
-      tags: "Ông tổ",
-      job: "Giáo viên",
-      how: "Nguyễn Thị B",
-      degree: "Tốt nghiệp đại học",
-      status: "Bình thường",
-    },
-    {
-      key: "2",
-      name: "Nguyễn Văn C",
-      dob: "1965/01/30",
-      gen: "Nam",
-      phone: "0969290646",
-      tags: "Trưởng họ",
-      job: "Bác Sĩ",
-      how: "Nguyễn Thị D",
-      degree: "Tốt nghiệp đại học",
-      status: "Bình thường",
-    },
-    {
-      key: "3",
-      name: "Nguyễn Văn E",
-      dob: "1967/01/30",
-      gen: "Nam",
-      phone: "0969290646",
-      tags: "Phó họ",
-      job: "Giáo viên",
-      how: "Văn A",
-      degree: "Tốt nghiệp đại học",
-      status: "Bình thường",
-    },
-    {
-      key: "4",
-      name: "Nguyễn Văn F",
-      dob: "1969/01/30",
-      gen: "Nữ",
-      phone: "0969290646",
-      tags: "Thành viên",
-      job: "Giáo viên",
-      how: "Nguyễn Văn E",
-      degree: "Tốt nghiệp đại học",
-      status: "Bình thường",
-    },
-  ]);
-  const dateFormat = 'YYYY/MM/DD';
-  const handleDelete = (key) => {
-    const newData = [...data];
-    const index = newData
-      .map(function (element) {
-        return element.key;
-      })
-      .indexOf(key);
 
-    newData.splice(index, 1);
-    setData(newData);
+  const handleDelete = (key) => {
+    // const newData = [...data];
+    // const index = newData
+    //   .map(function (element) {
+    //     return element.key;
+    //   })
+    //   .indexOf(key);
+
+    // newData.splice(index, 1);
+    // setData(newData);
+    dispatch(storeDeleteMember(key))
+    // setData(key);
   };
   const handleEdit = () => {
-    const newEdit = [...data].map(function (element) {
-      if (element.key === memberSelect.key) {
-        return memberSelect;
-      }
-      return element;
-    });
-    console.log(newEdit);
-    setData(newEdit);
+    // const newEdit = [...data].map(function (element) {
+    //   if (element.key === memberSelect.key) {
+    //     return memberSelect;
+    //   }
+    //   return element;
+    // });
+    // console.log(newEdit);
+    dispatch(storeEditMember(memberSelect))
+    // setData(newEdit);
     setIsEdit(false);
   };
 
@@ -153,9 +116,10 @@ const ListMember = () => {
     setIsCreate(true);
   };
   const handleSavedNewMembers = () => {
-    const newCreate = [...data];
-    newCreate.push(newMemberSelect);
-    setData(newCreate);
+    // const newCreate = [...data];
+    // newCreate.push(newMemberSelect);
+    dispatch(storeAddMember(newMemberSelect))
+    // setData(newCreate);
     setIsCreate(false);
   };
   return (
@@ -172,8 +136,7 @@ const ListMember = () => {
       >
         <ItemInfor>
           <Input
-
-            className="input"
+            className="input-create"
             onChange={(event) =>
               setNewMemberSelect({
                 ...newMemberSelect,
@@ -183,8 +146,8 @@ const ListMember = () => {
             placeholder="Enter name"
           />
           <DatePicker
-              format="YYYY/MM/DD"
-            className="input"
+            format="YYYY/MM/DD"
+            className="input-create"
             onChange={(date, dateString) =>
               setNewMemberSelect({
                 ...newMemberSelect,
@@ -194,7 +157,7 @@ const ListMember = () => {
             placeholder="Enter Date of Birth"
           />
           <Input
-            className="input"
+            className="input-create"
             onChange={(event) =>
               setNewMemberSelect({
                 ...newMemberSelect,
@@ -204,7 +167,7 @@ const ListMember = () => {
             placeholder="Enter Gender"
           />
           <Input
-            className="input"
+            className="input-create"
             onChange={(event) =>
               setNewMemberSelect({
                 ...newMemberSelect,
@@ -214,7 +177,7 @@ const ListMember = () => {
             placeholder="Enter Phone Number"
           />
           <Input
-            className="input"
+            className="input-create"
             onChange={(event) =>
               setNewMemberSelect({
                 ...newMemberSelect,
@@ -224,7 +187,7 @@ const ListMember = () => {
             placeholder="Enter Tags"
           />
           <Input
-            className="input"
+            className="input-create"
             onChange={(event) =>
               setNewMemberSelect({
                 ...newMemberSelect,
@@ -234,7 +197,27 @@ const ListMember = () => {
             placeholder="Enter Jobs"
           />
           <Input
-            className="input"
+            className="input-create"
+            onChange={(event) =>
+              setNewMemberSelect({
+                ...newMemberSelect,
+                nof: event.target.value,
+              })
+            }
+            placeholder="Enter father name"
+          />
+          <Input
+            className="input-create"
+            onChange={(event) =>
+              setNewMemberSelect({
+                ...newMemberSelect,
+                nom: event.target.value,
+              })
+            }
+            placeholder="Enter mother name"
+          />
+          <Input
+            className="input-create"
             onChange={(event) =>
               setNewMemberSelect({
                 ...newMemberSelect,
@@ -244,7 +227,7 @@ const ListMember = () => {
             placeholder="Enter Name of Husband/Wife"
           />
           <Input
-            className="input"
+            className="input-create"
             onChange={(event) =>
               setNewMemberSelect({
                 ...newMemberSelect,
@@ -254,7 +237,7 @@ const ListMember = () => {
             placeholder="Enter Degree"
           />
           <Input
-            className="input"
+            className="input-create"
             onChange={(event) =>
               setNewMemberSelect({
                 ...newMemberSelect,
@@ -274,6 +257,8 @@ const ListMember = () => {
             <p>Phone number: {memberSelect.phone}</p>
             <p>Tags: {memberSelect.tags}</p>
             <p>Jobs: {memberSelect.job}</p>
+            <p>Name of Father: {memberSelect.nof}</p>
+            <p>Name of Mother: {memberSelect.nom}</p>
             <p>Name of Husband/Wife: {memberSelect.how}</p>
             <p>Degree: {memberSelect.degree}</p>
             <p>Status: {memberSelect.status}</p>
@@ -288,6 +273,7 @@ const ListMember = () => {
       >
         {memberSelect && (
           <ItemInfor>
+            <div className="form-div">Full Name</div>
             <Input
               onChange={(event) =>
                 setMemberSelect({
@@ -299,18 +285,21 @@ const ListMember = () => {
               value={memberSelect.name}
               placeholder="Enter name"
             />
+            <div className="form-div">Date of Birth</div>
             <DatePicker
-               onChange={(date, dateString) =>
+              onChange={(date, dateString) =>
                 setMemberSelect({
                   ...memberSelect,
                   dob: dateString,
                 })
               }
               className="input"
+              allowClear={false}
               value={dayjs(memberSelect.dob)}
-              format="YYYY/MM/DD"
+              // format="YYYY/MM/DD"
               placeholder="Enter Date of Birth"
             />
+            <div className="form-div">Phone Number</div>
             <Input
               onChange={(event) =>
                 setMemberSelect({
@@ -322,6 +311,7 @@ const ListMember = () => {
               value={memberSelect.phone}
               placeholder="Enter Phone Number"
             />
+            <div className="form-div">Tag</div>
             <Input
               onChange={(event) =>
                 setMemberSelect({
@@ -333,6 +323,7 @@ const ListMember = () => {
               value={memberSelect.tags}
               placeholder="Enter Tags"
             />
+            <div className="form-div">Job</div>
             <Input
               onChange={(event) =>
                 setMemberSelect({
@@ -344,6 +335,33 @@ const ListMember = () => {
               value={memberSelect.job}
               placeholder="Enter Jobs"
             />
+            <div className="form-div">Name of Father</div>
+            <Input
+              className="input"
+              onChange={(event) =>
+                setNewMemberSelect({
+                  ...memberSelect,
+                  nof: event.target.value,
+                })
+              }
+              classNames="input"
+              value={memberSelect.nof}
+              placeholder="Enter father name"
+            />
+            <div className="form-div">Name of Mother</div>
+            <Input
+              className="input"
+              onChange={(event) =>
+                setNewMemberSelect({
+                  ...memberSelect,
+                  nom: event.target.value,
+                })
+              }
+              classNames="input"
+              value={memberSelect.nom}
+              placeholder="Enter mother name"
+            />
+            <div className="form-div">Name of Husband/Wife</div>
             <Input
               onChange={(event) =>
                 setMemberSelect({
@@ -355,6 +373,8 @@ const ListMember = () => {
               value={memberSelect.how}
               placeholder="Enter Name of Husband/Wife"
             />
+            <div className="form-div">Degree</div>
+
             <Input
               onChange={(event) =>
                 setMemberSelect({
@@ -366,6 +386,8 @@ const ListMember = () => {
               value={memberSelect.degree}
               placeholder="Enter Degree"
             />
+            <div className="form-div">Status</div>
+
             <Input
               onChange={(event) =>
                 setMemberSelect({

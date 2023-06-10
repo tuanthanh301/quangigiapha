@@ -1,26 +1,46 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/layout/Header/Header";
 import Home from "./pages/Home/Home";
 import ListMember from "./pages/ListMember/ListMember";
-import Drawio from "./pages/Drawio/Drawio";
 import LoginPage from "./pages/LoginPage/LoginPage";
-function App() {
+import Register from "./pages/RegisterPage/Register";
+import { Provider, useSelector } from "react-redux";
+import { persistor, store } from "./rootStore";
+import { PersistGate } from "redux-persist/integration/react";
+
+const RootRoute = () => {
+  const userInfor = useSelector((state) => state.auth.userInfor);
   return (
-    <div className="App">
-      <Router>
+    <div>
+      {!userInfor ? (
+        <>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/list" element={<ListMember />} />
+          </Routes>
+        </>
+      ) : (
         <Routes>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<LoginPage />} />
         </Routes>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/list" element={<ListMember />} />
-          {/* <Route path="/draw" element={<Drawio />} /> */}
-        </Routes>
-      </Router>
+      )}
     </div>
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <RootRoute />
+        </PersistGate>
+      </Provider>
+    </BrowserRouter>
   );
 }
 
