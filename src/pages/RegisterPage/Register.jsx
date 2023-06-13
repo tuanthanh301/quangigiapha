@@ -1,14 +1,19 @@
 import { Button, Input } from "antd";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { storeAddAccount } from "../../store/auth-reducer";
 import { BackGroundRegister } from "./registerStyle";
 
 const initFormValue = {
+  id: "",
   firstName: "",
   lastName: "",
   email: "",
   password: "",
   confirmPassword: "",
 };
+
 const isEmptyValue = (value) => {
   return !value || value.trim().length < 1;
 };
@@ -18,7 +23,7 @@ const isEmailValid = (email) => {
 const Register = () => {
   const [formValue, setFormValue] = useState(initFormValue);
   const [formError, setFormError] = useState({});
-
+  const dispatch = useDispatch()
   const validateForm = () => {
     const error = {};
     if (isEmptyValue(formValue.firstName)) {
@@ -45,7 +50,7 @@ const Register = () => {
     setFormError(error);
     return Object.keys(error).length === 0;
   };
-
+  const navigate = useNavigate();
   const handleChange = (event) => {
     const { value, name } = event.target;
     setFormValue({
@@ -56,7 +61,9 @@ const Register = () => {
   const handleSubmit = (event) => {
     // event.preventDefault();
     if (validateForm()) {
-      console.log("Form value", formValue);
+      dispatch(storeAddAccount(formValue))
+      navigate("/login");
+      // console.log("Form value", formValue);
     } else {
       console.log("Form invalid");
     }

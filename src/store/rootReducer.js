@@ -12,7 +12,7 @@ export const databasePersistConfig = {
 export const authPersistConfig = {
     key: 'auth',
     storage: localStorage,
-    whitelist: ["userInfor"],
+    whitelist: ["userInfor", "listAccount"],
 }
 const rootReducer = combineReducers({
     database: persistReducer(databasePersistConfig, databaseReducer),
