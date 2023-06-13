@@ -13,7 +13,7 @@ const RootRoute = () => {
   const userInfor = useSelector((state) => state.auth.userInfor);
   return (
     <div>
-      {!userInfor ? (
+      {userInfor ? (
         <>
           <Header />
           <Routes>
