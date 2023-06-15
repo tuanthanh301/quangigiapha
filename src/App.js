@@ -8,6 +8,7 @@ import Register from "./pages/RegisterPage/Register";
 import { Provider, useSelector } from "react-redux";
 import { persistor, store } from "./rootStore";
 import { PersistGate } from "redux-persist/integration/react";
+import Tree from "./pages/Tree/Tree";
 
 const RootRoute = () => {
   const userInfor = useSelector((state) => state.auth.userInfor);
@@ -17,6 +18,7 @@ const RootRoute = () => {
         <>
           <Header />
           <Routes>
+            <Route path="/tree" element={<Tree />} />
             <Route path="/" element={<Home />} />
             <Route path="/list" element={<ListMember />} />
           </Routes>
