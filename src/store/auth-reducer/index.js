@@ -29,13 +29,23 @@ const authSlice = createSlice({
         },
       ];
     },
-    storeSetUserInfor: (state, { payload}) => {
-        state.userInfor = payload
+    storeSetUserInfor: (state, { payload }) => {
+      state.userInfor = payload;
     },
-    
+    storeDeleteUserInfor: (state, { payload }) => {
+      // const newUserInfor = [...state.userInfor];
+      // const index = newUserInfor
+      //   .map(function (element) {
+      //     return element.id;
+      //   })
+      //   .indexOf(payload);
+      // newUserInfor.splice(index, 1);
+      // state.userInfor = newUserInfor;
+      state.userInfor = null;
+    },
   },
 });
 
-export const { storeAddAccount, storeSetUserInfor } = authSlice.actions;
+export const { storeAddAccount, storeSetUserInfor, storeDeleteUserInfor } = authSlice.actions;
 
 export default authSlice.reducer;

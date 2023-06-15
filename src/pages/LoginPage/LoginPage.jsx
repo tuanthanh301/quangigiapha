@@ -1,8 +1,8 @@
 import { Button, Input } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getImagePath } from "../../helpers/image";
-import { storeFindAccount, storeSetUserInfor } from "../../store/auth-reducer";
+// import { getImagePath } from "../../helpers/image";
+import { storeSetUserInfor } from "../../store/auth-reducer";
 import { BackGroundLogin } from "./loginPageStyle";
 
 const LoginPage = () => {
@@ -58,9 +58,9 @@ const LoginPage = () => {
         Sign in
       </Button>
       <div className="line mt2"></div>
-      <div className="">
+      {/* <div className="">
         <a href="">Forgot password</a>
-      </div>
+      </div> */}
       <a href="http://localhost:3000/register" path="/register">
         You dont't have an account? Create new account
       </a>
