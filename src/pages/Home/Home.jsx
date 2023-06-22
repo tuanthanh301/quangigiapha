@@ -5,7 +5,7 @@ import { HomeWrapper } from "./homeStyle";
 const Home = () => {
   return (
     <HomeWrapper>
-      <img src={getImagePath("pha-do-dang-cay.jpg")} alt="" />
+      
     </HomeWrapper>
   );
 };

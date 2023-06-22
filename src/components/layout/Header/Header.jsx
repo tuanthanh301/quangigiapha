@@ -8,12 +8,12 @@ import { storeDeleteUserInfor } from "../../../store/auth-reducer";
 import { HeaderWrapper, ItemHeader } from "./headerStyle";
 
 const Header = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const handleLogOut = () => {
-        dispatch(storeDeleteUserInfor());
-        navigate("/login")
-    };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    navigate("/login");
+    dispatch(storeDeleteUserInfor());
+  };
   return (
     <HeaderWrapper>
       <ItemHeader to="/">
@@ -22,6 +22,7 @@ const Header = () => {
       <ItemHeader to="/tree">Tree</ItemHeader>
       <ItemHeader to="/financial">Financial management</ItemHeader>
       <ItemHeader to="/list">List Member</ItemHeader>
+      <ItemHeader to="/profile">Profile</ItemHeader>
       {/* <ItemHeader to="/iphone">Iphone</ItemHeader>
             <ItemHeader to="/watch">Watch</ItemHeader>
             <ItemHeader to="/airpod">AirPods</ItemHeader>
@@ -30,7 +31,6 @@ const Header = () => {
       <ItemHeader>
         <img src={getImagePath("search-icon.svg")} alt="" />
       </ItemHeader>
-      {/* <ItemHeader><img src={getImagePath("bag-icon.svg")} alt="" /></ItemHeader> */}
       <ItemHeader>
         <Button type="primary" danger onClick={handleLogOut}>
           Log Out
