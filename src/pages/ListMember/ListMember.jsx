@@ -3,10 +3,19 @@ import dayjs from "dayjs";
 import { DatePicker, Input, Modal, Space, Table, Tag } from "antd";
 import { ButtonCreate, ItemInfor } from "./listMemberStyle";
 import { useDispatch, useSelector } from "react-redux";
-import { storeAddMember, storeDeleteMember, storeEditMember } from "../../store/database-reducer";
+import {
+  storeAddMember,
+  storeDeleteMember,
+  storeEditMember,
+} from "../../store/database-reducer";
 
 const ListMember = () => {
   const columns = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+    },
     {
       title: "Name",
       dataIndex: "name",
@@ -20,8 +29,8 @@ const ListMember = () => {
     },
     {
       title: "Gender",
-      dataIndex: "gen",
-      key: "gen",
+      dataIndex: "gender",
+      key: "gender",
     },
     {
       title: "Phone Number",
@@ -29,7 +38,7 @@ const ListMember = () => {
       key: "phone",
     },
     {
-      title: "Tags",
+      title: "Tag",
       key: "tags",
       dataIndex: "tags",
       render: (_, { tags }) => (
@@ -66,10 +75,10 @@ const ListMember = () => {
       ),
     },
   ];
-  const dispatch = useDispatch()
-  const data = useSelector(state => state.database.database)
-  const setData = (dataNew) => {
-  }
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.database.database);
+  // const setData = (dataNew) => {
+  // }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -87,7 +96,7 @@ const ListMember = () => {
 
     // newData.splice(index, 1);
     // setData(newData);
-    dispatch(storeDeleteMember(key))
+    dispatch(storeDeleteMember(key));
     // setData(key);
   };
   const handleEdit = () => {
@@ -98,7 +107,7 @@ const ListMember = () => {
     //   return element;
     // });
     // console.log(newEdit);
-    dispatch(storeEditMember(memberSelect))
+    dispatch(storeEditMember(memberSelect));
     // setData(newEdit);
     setIsEdit(false);
   };
@@ -118,13 +127,14 @@ const ListMember = () => {
   const handleSavedNewMembers = () => {
     // const newCreate = [...data];
     // newCreate.push(newMemberSelect);
-    dispatch(storeAddMember(newMemberSelect))
+    dispatch(storeAddMember(newMemberSelect));
     // setData(newCreate);
     setIsCreate(false);
   };
   return (
     <div>
       <Table columns={columns} dataSource={data} />
+
       <ButtonCreate type="primary" onClick={handleCreate}>
         Create Member{" "}
       </ButtonCreate>
@@ -145,6 +155,36 @@ const ListMember = () => {
             }
             placeholder="Enter name"
           />
+          <Input
+            className="input-create"
+            onChange={(event) =>
+              setNewMemberSelect({
+                ...newMemberSelect,
+                pids: event.target.value,
+              })
+            }
+            placeholder="Enter PIDS"
+          />
+          <Input
+            className="input-create"
+            onChange={(event) =>
+              setNewMemberSelect({
+                ...newMemberSelect,
+                mid: event.target.value,
+              })
+            }
+            placeholder="Enter MID"
+          />
+          <Input
+            className="input-create"
+            onChange={(event) =>
+              setNewMemberSelect({
+                ...newMemberSelect,
+                fid: event.target.value,
+              })
+            }
+            placeholder="Enter FID"
+          />
           <DatePicker
             format="YYYY/MM/DD"
             className="input-create"
@@ -161,7 +201,7 @@ const ListMember = () => {
             onChange={(event) =>
               setNewMemberSelect({
                 ...newMemberSelect,
-                gen: event.target.value,
+                gender: event.target.value,
               })
             }
             placeholder="Enter Gender"
@@ -201,36 +241,6 @@ const ListMember = () => {
             onChange={(event) =>
               setNewMemberSelect({
                 ...newMemberSelect,
-                nof: event.target.value,
-              })
-            }
-            placeholder="Enter father name"
-          />
-          <Input
-            className="input-create"
-            onChange={(event) =>
-              setNewMemberSelect({
-                ...newMemberSelect,
-                nom: event.target.value,
-              })
-            }
-            placeholder="Enter mother name"
-          />
-          <Input
-            className="input-create"
-            onChange={(event) =>
-              setNewMemberSelect({
-                ...newMemberSelect,
-                how: event.target.value,
-              })
-            }
-            placeholder="Enter Name of Husband/Wife"
-          />
-          <Input
-            className="input-create"
-            onChange={(event) =>
-              setNewMemberSelect({
-                ...newMemberSelect,
                 degree: event.target.value,
               })
             }
@@ -246,6 +256,16 @@ const ListMember = () => {
             }
             placeholder="Enter Status"
           />
+          <Input
+            className="input-create"
+            onChange={(event) =>
+              setNewMemberSelect({
+                ...newMemberSelect,
+                img: event.target.value,
+              })
+            }
+            placeholder="Enter Image"
+          />
         </ItemInfor>
       </Modal>
       <Modal title="Details of Member" open={isModalOpen} onOk={handleOk}>
@@ -253,15 +273,16 @@ const ListMember = () => {
           <ItemInfor>
             <p>Name: {memberSelect.name}</p>
             <p>Date of birth: {memberSelect.dob}</p>
-            <p>Gender: {memberSelect.gen}</p>
+            <p>PIDS: {memberSelect.pids}</p>
+            <p>mid: {memberSelect.mid}</p>
+            <p>fid: {memberSelect.fid}</p>
+            <p>Gender: {memberSelect.gender}</p>
             <p>Phone number: {memberSelect.phone}</p>
             <p>Tags: {memberSelect.tags}</p>
-            <p>Jobs: {memberSelect.job}</p>
-            <p>Name of Father: {memberSelect.nof}</p>
-            <p>Name of Mother: {memberSelect.nom}</p>
-            <p>Name of Husband/Wife: {memberSelect.how}</p>
+            <p>Job: {memberSelect.job}</p>
             <p>Degree: {memberSelect.degree}</p>
             <p>Status: {memberSelect.status}</p>
+            <p>Image: {memberSelect.img}</p>
           </ItemInfor>
         )}
       </Modal>
@@ -284,6 +305,42 @@ const ListMember = () => {
               className="input"
               value={memberSelect.name}
               placeholder="Enter name"
+            />
+            <div className="form-div">PIDS</div>
+            <Input
+              onChange={(event) =>
+                setMemberSelect({
+                  ...memberSelect,
+                  pids: event.target.value,
+                })
+              }
+              className="input"
+              value={memberSelect.pids}
+              placeholder="Enter pids"
+            />
+            <div className="form-div">Mid</div>
+            <Input
+              onChange={(event) =>
+                setMemberSelect({
+                  ...memberSelect,
+                  mid: event.target.value,
+                })
+              }
+              className="input"
+              value={memberSelect.mid}
+              placeholder="Enter mid"
+            />
+            <div className="form-div">Fid</div>
+            <Input
+              onChange={(event) =>
+                setMemberSelect({
+                  ...memberSelect,
+                  fid: event.target.value,
+                })
+              }
+              className="input"
+              value={memberSelect.fid}
+              placeholder="Enter fid"
             />
             <div className="form-div">Date of Birth</div>
             <DatePicker
@@ -335,44 +392,6 @@ const ListMember = () => {
               value={memberSelect.job}
               placeholder="Enter Jobs"
             />
-            <div className="form-div">Name of Father</div>
-            <Input
-              className="input"
-              onChange={(event) =>
-                setNewMemberSelect({
-                  ...memberSelect,
-                  nof: event.target.value,
-                })
-              }
-              classNames="input"
-              value={memberSelect.nof}
-              placeholder="Enter father name"
-            />
-            <div className="form-div">Name of Mother</div>
-            <Input
-              className="input"
-              onChange={(event) =>
-                setNewMemberSelect({
-                  ...memberSelect,
-                  nom: event.target.value,
-                })
-              }
-              classNames="input"
-              value={memberSelect.nom}
-              placeholder="Enter mother name"
-            />
-            <div className="form-div">Name of Husband/Wife</div>
-            <Input
-              onChange={(event) =>
-                setMemberSelect({
-                  ...memberSelect,
-                  how: event.target.value,
-                })
-              }
-              className="input"
-              value={memberSelect.how}
-              placeholder="Enter Name of Husband/Wife"
-            />
             <div className="form-div">Degree</div>
 
             <Input
@@ -386,7 +405,7 @@ const ListMember = () => {
               value={memberSelect.degree}
               placeholder="Enter Degree"
             />
-            <div className="form-div">Status</div>
+            <div className="form-div">Email</div>
 
             <Input
               onChange={(event) =>
@@ -398,6 +417,18 @@ const ListMember = () => {
               className="input"
               value={memberSelect.status}
               placeholder="Enter Status"
+            />
+            <div className="form-div">Image</div>
+            <Input
+              onChange={(event) =>
+                setMemberSelect({
+                  ...memberSelect,
+                  img: event.target.value,
+                })
+              }
+              className="input"
+              value={memberSelect.img}
+              placeholder="Enter Image"
             />
           </ItemInfor>
         )}

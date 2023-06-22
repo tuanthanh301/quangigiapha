@@ -10,19 +10,23 @@ const databaseSlice = createSlice({
   initialState,
   reducers: {
     storeAddMember: (state, { payload }) => {
-      const max = Math.max(...state.database.map((o) => o.key)) + 1;
+      const max = Math.max(...state.database.map((o) => o.id)) + 1;
       state.database = [
         ...state.database,
         {
           ...payload,
-          key: max,
+          id: max,
+          pids: payload.pids ? [Number(payload.pids)] : "",
         },
       ];
     },
     storeEditMember: (state, { payload }) => {
       const newEdit = [...state.database].map(function (element) {
-        if (element.key === payload.key) {
-          return payload;
+        if (element.id === payload.id) {
+          return {
+            ...payload,
+            pids: payload.pids ? [Number(payload.pids)] : "",
+          };
         }
         return element;
       });
@@ -32,7 +36,7 @@ const databaseSlice = createSlice({
       const newData = [...state.database];
       const index = newData
         .map(function (element) {
-          return element.key;
+          return element.id;
         })
         .indexOf(payload);
 
