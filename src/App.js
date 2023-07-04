@@ -15,13 +15,13 @@ import Profile from "./pages/Profile/Profile";
 const RootRoute = () => {
   const userInfor = useSelector((state) => state.auth.userInfor);
   return (
-    <div>
+    <>
       {userInfor ? (
         <>
           <Header />
           <Routes>
-            <Route path="/tree" element={<Tree />} />
             <Route path="/" element={<Home />} />
+            <Route path="/tree" element={<Tree />} />
             <Route path="/financial" element={<Financial />} />
             <Route path="/list" element={<ListMember />} />
             <Route path="/profile" element={<Profile />} />
@@ -29,12 +29,12 @@ const RootRoute = () => {
         </>
       ) : (
         <Routes>
+          <Route path="/" element={<LoginPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/" element={<LoginPage />} />
         </Routes>
       )}
-    </div>
+    </>
   );
 };
 

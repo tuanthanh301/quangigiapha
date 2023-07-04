@@ -8,6 +8,7 @@ import {
   storeDeleteMember,
   storeEditMember,
 } from "../../store/database-reducer";
+import CustomSelect from "../../components/CustomSelect/CustomSelect";
 
 const ListMember = () => {
   const columns = [
@@ -87,28 +88,10 @@ const ListMember = () => {
   const [newMemberSelect, setNewMemberSelect] = useState();
 
   const handleDelete = (key) => {
-    // const newData = [...data];
-    // const index = newData
-    //   .map(function (element) {
-    //     return element.key;
-    //   })
-    //   .indexOf(key);
-
-    // newData.splice(index, 1);
-    // setData(newData);
     dispatch(storeDeleteMember(key));
-    // setData(key);
   };
   const handleEdit = () => {
-    // const newEdit = [...data].map(function (element) {
-    //   if (element.key === memberSelect.key) {
-    //     return memberSelect;
-    //   }
-    //   return element;
-    // });
-    // console.log(newEdit);
     dispatch(storeEditMember(memberSelect));
-    // setData(newEdit);
     setIsEdit(false);
   };
 
@@ -125,12 +108,14 @@ const ListMember = () => {
     setIsCreate(true);
   };
   const handleSavedNewMembers = () => {
-    // const newCreate = [...data];
-    // newCreate.push(newMemberSelect);
     dispatch(storeAddMember(newMemberSelect));
-    // setData(newCreate);
     setIsCreate(false);
   };
+
+  const findMemberById = (id) => {
+    return data.find(element => element.id === id);
+  }
+
   return (
     <div>
       <Table columns={columns} dataSource={data} />
@@ -145,6 +130,7 @@ const ListMember = () => {
         onCancel={() => setIsCreate(false)}
       >
         <ItemInfor>
+          <div className="form-div">Full Name:</div>
           <Input
             className="input-create"
             onChange={(event) =>
@@ -155,16 +141,17 @@ const ListMember = () => {
             }
             placeholder="Enter name"
           />
-          <Input
-            className="input-create"
-            onChange={(event) =>
+          <div className="form-div">PIDS:</div>
+          <CustomSelect
+            setValue={(e) =>
               setNewMemberSelect({
                 ...newMemberSelect,
-                pids: event.target.value,
+                pids: e,
               })
             }
-            placeholder="Enter PIDS"
           />
+          <div className="form-div">MID:</div>
+
           <Input
             className="input-create"
             onChange={(event) =>
@@ -175,6 +162,8 @@ const ListMember = () => {
             }
             placeholder="Enter MID"
           />
+          <div className="form-div">FID:</div>
+
           <Input
             className="input-create"
             onChange={(event) =>
@@ -185,6 +174,8 @@ const ListMember = () => {
             }
             placeholder="Enter FID"
           />
+          <div className="form-div">Date of birth:</div>
+
           <DatePicker
             format="YYYY/MM/DD"
             className="input-create"
@@ -196,6 +187,8 @@ const ListMember = () => {
             }
             placeholder="Enter Date of Birth"
           />
+          <div className="form-div">Gender: </div>
+
           <Input
             className="input-create"
             onChange={(event) =>
@@ -206,6 +199,8 @@ const ListMember = () => {
             }
             placeholder="Enter Gender"
           />
+          <div className="form-div">Phone Number: </div>
+
           <Input
             className="input-create"
             onChange={(event) =>
@@ -216,6 +211,8 @@ const ListMember = () => {
             }
             placeholder="Enter Phone Number"
           />
+          <div className="form-div">Tags</div>
+
           <Input
             className="input-create"
             onChange={(event) =>
@@ -226,6 +223,8 @@ const ListMember = () => {
             }
             placeholder="Enter Tags"
           />
+          <div className="form-div">Job:</div>
+
           <Input
             className="input-create"
             onChange={(event) =>
@@ -236,6 +235,8 @@ const ListMember = () => {
             }
             placeholder="Enter Jobs"
           />
+          <div className="form-div">Degree: </div>
+
           <Input
             className="input-create"
             onChange={(event) =>
@@ -246,6 +247,8 @@ const ListMember = () => {
             }
             placeholder="Enter Degree"
           />
+          <div className="form-div">Status: </div>
+
           <Input
             className="input-create"
             onChange={(event) =>
@@ -256,6 +259,8 @@ const ListMember = () => {
             }
             placeholder="Enter Status"
           />
+          <div className="form-div">Image:</div>
+
           <Input
             className="input-create"
             onChange={(event) =>
@@ -273,7 +278,7 @@ const ListMember = () => {
           <ItemInfor>
             <p>Name: {memberSelect.name}</p>
             <p>Date of birth: {memberSelect.dob}</p>
-            <p>PIDS: {memberSelect.pids}</p>
+            <p>PIDS: {findMemberById(memberSelect?.pids[0])?.name}</p>
             <p>mid: {memberSelect.mid}</p>
             <p>fid: {memberSelect.fid}</p>
             <p>Gender: {memberSelect.gender}</p>
@@ -294,7 +299,7 @@ const ListMember = () => {
       >
         {memberSelect && (
           <ItemInfor>
-            <div className="form-div">Full Name</div>
+            <div className="form-div">Full Name:</div>
             <Input
               onChange={(event) =>
                 setMemberSelect({
@@ -306,19 +311,17 @@ const ListMember = () => {
               value={memberSelect.name}
               placeholder="Enter name"
             />
-            <div className="form-div">PIDS</div>
-            <Input
-              onChange={(event) =>
+            <div className="form-div">PIDS:</div>
+            <CustomSelect
+              value={memberSelect.pids}
+              setValue={(e) =>
                 setMemberSelect({
                   ...memberSelect,
-                  pids: event.target.value,
+                  pids: e,
                 })
               }
-              className="input"
-              value={memberSelect.pids}
-              placeholder="Enter pids"
             />
-            <div className="form-div">Mid</div>
+            <div className="form-div">Mid:</div>
             <Input
               onChange={(event) =>
                 setMemberSelect({
@@ -330,7 +333,7 @@ const ListMember = () => {
               value={memberSelect.mid}
               placeholder="Enter mid"
             />
-            <div className="form-div">Fid</div>
+            <div className="form-div">Fid:</div>
             <Input
               onChange={(event) =>
                 setMemberSelect({
@@ -342,7 +345,7 @@ const ListMember = () => {
               value={memberSelect.fid}
               placeholder="Enter fid"
             />
-            <div className="form-div">Date of Birth</div>
+            <div className="form-div">Date of Birth:</div>
             <DatePicker
               onChange={(date, dateString) =>
                 setMemberSelect({
@@ -356,7 +359,7 @@ const ListMember = () => {
               // format="YYYY/MM/DD"
               placeholder="Enter Date of Birth"
             />
-            <div className="form-div">Phone Number</div>
+            <div className="form-div">Phone Number: </div>
             <Input
               onChange={(event) =>
                 setMemberSelect({
@@ -368,7 +371,7 @@ const ListMember = () => {
               value={memberSelect.phone}
               placeholder="Enter Phone Number"
             />
-            <div className="form-div">Tag</div>
+            <div className="form-div">Tag: </div>
             <Input
               onChange={(event) =>
                 setMemberSelect({
@@ -380,7 +383,7 @@ const ListMember = () => {
               value={memberSelect.tags}
               placeholder="Enter Tags"
             />
-            <div className="form-div">Job</div>
+            <div className="form-div">Job: </div>
             <Input
               onChange={(event) =>
                 setMemberSelect({
@@ -392,7 +395,7 @@ const ListMember = () => {
               value={memberSelect.job}
               placeholder="Enter Jobs"
             />
-            <div className="form-div">Degree</div>
+            <div className="form-div">Degree: </div>
 
             <Input
               onChange={(event) =>
@@ -405,7 +408,7 @@ const ListMember = () => {
               value={memberSelect.degree}
               placeholder="Enter Degree"
             />
-            <div className="form-div">Email</div>
+            <div className="form-div">Email: </div>
 
             <Input
               onChange={(event) =>
@@ -418,7 +421,7 @@ const ListMember = () => {
               value={memberSelect.status}
               placeholder="Enter Status"
             />
-            <div className="form-div">Image</div>
+            <div className="form-div">Image: </div>
             <Input
               onChange={(event) =>
                 setMemberSelect({

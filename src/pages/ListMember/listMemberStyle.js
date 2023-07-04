@@ -8,7 +8,7 @@ export const ItemInfor = styled.p`
     width: 400px;
   }
   .input-create{
-    margin-top:10px;
+    /* margin-top:10px; */
     width: 400px;
 
   }

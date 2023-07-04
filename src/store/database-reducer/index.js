@@ -11,7 +11,7 @@ const databaseSlice = createSlice({
   reducers: {
     storeAddMember: (state, { payload }) => {
       const max = Math.max(...state.database.map((o) => o.id)) + 1;
-      state.database = [
+      let newData = [
         ...state.database,
         {
           ...payload,
@@ -19,6 +19,18 @@ const databaseSlice = createSlice({
           pids: payload.pids ? [Number(payload.pids)] : "",
         },
       ];
+      if (payload.pids) {
+        newData = newData.map((element) => {
+          if (element.id === payload.pids) {
+            return {
+              ...element,
+              pids: [max],
+            };
+          }
+          return element;
+        });
+      }
+      state.database = newData;
     },
     storeEditMember: (state, { payload }) => {
       const newEdit = [...state.database].map(function (element) {

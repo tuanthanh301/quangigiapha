@@ -1,7 +1,8 @@
-import { Button } from "antd";
 import { styled } from "styled-components";
 
 export const ItemInfor = styled.p`
+  display: flex;
+  flex-direction: column;
   margin-left: 10px; 
   /* margin-top: -30px; */
   .input{
