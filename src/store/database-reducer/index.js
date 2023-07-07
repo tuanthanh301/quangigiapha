@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { dataDegree } from "./dataDegree";
 import { dataPrimitive } from "./dataPrimitive";
 
 const initialState = {
   database: dataPrimitive,
+  // dataDe: dataDegree,
 };
 
 const databaseSlice = createSlice({

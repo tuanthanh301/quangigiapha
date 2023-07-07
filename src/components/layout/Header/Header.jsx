@@ -11,7 +11,9 @@ const Header = () => {
       <ItemHeader to="/tree">Tree</ItemHeader>
       {/* <ItemHeader to="/financial">Financial management</ItemHeader> */}
       <ItemHeader to="/list">List Member</ItemHeader>
+      <ItemHeader to="/financial">Financial</ItemHeader>
       <ItemHeader to="/profile">Profile</ItemHeader>
+      
       
     </HeaderWrapper>
   );
