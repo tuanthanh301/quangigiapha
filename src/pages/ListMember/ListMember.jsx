@@ -37,7 +37,7 @@ const ListMember = () => {
       title: "Gender",
       dataIndex: "gender",
       key: "gender",
-      render: (text) => <div style={{color: text === "male" ? "red" : "blue"}}>{genderToGender(text)}</div>
+      render: (text) => <div style={{color: text === "male" ? "#0984e3" : " #ff7675"}}>{genderToGender(text)}</div>
     },
     {
       title: "Phone Number",
@@ -66,7 +66,7 @@ const ListMember = () => {
           >
             Details
           </a>
-          <a href="#/" onClick={() => handleDelete(record.key)}>
+          <a href="#/" onClick={() => handleDelete(record.id)}>
             Delete
           </a>
           <a
@@ -172,7 +172,7 @@ const ListMember = () => {
             setValue={(e) =>
               setNewMemberSelect({
                 ...newMemberSelect,
-                mid: e,
+                fid: e,
               })
             }
             placeholder="Enter MID"

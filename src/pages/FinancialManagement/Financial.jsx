@@ -3,17 +3,14 @@ import {
   NotificationOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Breadcrumb, Layout, Menu } from "antd";
 import React from "react";
-import ColectMoney from "./ColectMoney";
+import CollectMoney from "./CollectMoney";
 import { FinancialStyle } from "./financialStyle";
-const { Header, Content, Sider } = Layout;
-const items1 = [].map((key) => ({
-  key,
-  label: `nav ${key}`,
-}));
-const menuItem = ["Tài chính", "Sự kiện","Tài khoản"]
-const childrenItem = [["Thu","Chi","Báo cáo"]]
+const { Content, Sider } = Layout;
+
+const menuItem = ["Tài chính", "Sự kiện", "Tài khoản"];
+const childrenItem = [["Thu", "Chi", "Báo cáo"]];
 
 const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
   (icon, index) => {
@@ -22,7 +19,6 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
       icon: React.createElement(icon),
       label: menuItem[index],
       children: childrenItem[index]?.map((element, j) => {
-        const subKey = index * 4 + j + 1;
         return {
           key: element,
           label: element,
@@ -38,16 +34,18 @@ const Financial = () => {
         <Layout>
           <Sider
             width={200}
-            style={{
-              // background: red,
-            }}
+            style={
+              {
+                // background: red,
+              }
+            }
           >
             <Menu
               mode="inline"
               defaultSelectedKeys={["1"]}
               defaultOpenKeys={["sub1"]}
               onSelect={(e) => {
-                console.log(e)
+                console.log(e);
               }}
               style={{
                 height: "100%",
@@ -57,6 +55,7 @@ const Financial = () => {
             />
           </Sider>
           <Layout
+            className="content-container"
             style={{
               padding: "0 24px 24px",
             }}
@@ -71,14 +70,9 @@ const Financial = () => {
               <Breadcrumb.Item>App</Breadcrumb.Item>
             </Breadcrumb>
             <Content
-              style={{
-                padding: 24,
-                margin: 0,
-                height: "100vh",
-              // background: red,
-            }}
+            className="content-tab"
             >
-              <ColectMoney />
+              <CollectMoney />
             </Content>
           </Layout>
         </Layout>

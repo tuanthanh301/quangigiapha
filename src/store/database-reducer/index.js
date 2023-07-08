@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { dataDegree } from "./dataDegree";
+import { dataCollectDefaultMoney } from "./dataCollectDefaultMoney";
 import { dataPrimitive } from "./dataPrimitive";
+import { dataRevenueDefault } from "./dataRevenueDefault";
 
 const initialState = {
   database: dataPrimitive,
-  // dataDe: dataDegree,
+  dataCollect: dataCollectDefaultMoney,
+  dataRevenue: dataRevenueDefault,
 };
 
 const databaseSlice = createSlice({
@@ -18,7 +20,7 @@ const databaseSlice = createSlice({
         {
           ...payload,
           id: max,
-          pids: payload.pids ? [Number(payload.pids)] : "",
+          pids: payload.pids ? [Number(payload.pids)] : " ",
         },
       ];
       if (payload.pids) {
@@ -57,10 +59,61 @@ const databaseSlice = createSlice({
       newData.splice(index, 1);
       state.database = newData;
     },
+    storeDeleteCollect: (state, { payload }) => {
+      const newData = [...state.dataCollect];
+      const index = newData
+        .map(function (element) {
+          return element.id;
+        })
+        .indexOf(payload);
+      newData.splice(index, 1);
+      state.dataCollect = newData;
+    },
+    storeDeleteRevenue: (state, { payload }) => {
+      const newData = [...state.dataRevenue];
+      const index = newData
+        .map(function (element) {
+          return element.id;
+        })
+        .indexOf(payload);
+      newData.splice(index, 1);
+      state.dataRevenue = newData;
+    },
+    storeAddRevenue: (state, { payload }) => {
+      const max = Math.max(...state.dataRevenue.map((o) => o.id)) + 1;
+      let newDataRevenue = [
+        ...state.dataRevenue,
+        {
+          ...payload,
+          id: max,
+        },
+      ];
+      
+      state.dataRevenue = newDataRevenue;
+    },
+    storeAddCollect: (state, { payload }) => {
+      const max = Math.max(...state.dataCollect.map((o) => o.id)) + 1;
+      let newDataCollect = [
+        ...state.dataCollect,
+        {
+          ...payload,
+          id: max,
+        },
+      ];
+      
+      state.dataCollect = newDataCollect;
+    },
   },
 });
 
-export const { storeAddMember, storeEditMember, storeDeleteMember } =
-  databaseSlice.actions;
+export const {
+  storeAddMember,
+  storeEditMember,
+  storeDeleteMember,
+  storeDeleteCollect,
+  storeDeleteRevenue,
+  storeAddRevenue,
+  storeAddCollect,
+} = databaseSlice.actions;
 
 export default databaseSlice.reducer;

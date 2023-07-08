@@ -2,8 +2,8 @@ import { Select } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 
-const CustomSelect = ({ value, setValue }) => {
-  const data = useSelector((state) => state.database.database);
+const RevenueSelect = ({ value, setValue }) => {
+  const data = useSelector((state) => state.database.dataRevenue);
   return (
     <Select
       showSearch
@@ -24,14 +24,12 @@ const CustomSelect = ({ value, setValue }) => {
           .toLowerCase()
           .localeCompare((optionB?.label ?? "").toLowerCase())
       }
-      options={data
-        .filter((filterElement) => !filterElement?.pids[0])
-        .map((element) => ({
-          value: element.id,
-          label: element.name,
-        }))}
+      options={data.map((element) => ({
+        value: element.id,
+        label: element.revenue,
+      }))}
     />
   );
 };
 
-export default CustomSelect;
+export default RevenueSelect;
