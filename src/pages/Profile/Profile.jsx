@@ -1,7 +1,7 @@
 import { Button, Input } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { ItemHeader } from "../../components/layout/Header/headerStyle";
 import { storeDeleteUserInfor } from "../../store/auth-reducer";
 import { ItemInfor } from "./profileStyle";
@@ -11,8 +11,8 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogOut = () => {
-    navigate("/login");
     dispatch(storeDeleteUserInfor());
+    navigate("/login");
   };
   const [selectUserInfor, setSelectUserInfor] = useState(userInfor);
   return (

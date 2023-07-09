@@ -1,5 +1,11 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import Header from "./components/layout/Header/Header";
 import Home from "./pages/Home/Home";
 import ListMember from "./pages/ListMember/ListMember";
@@ -16,13 +22,19 @@ import { useEffect } from "react";
 const RootRoute = () => {
   const userInfor = useSelector((state) => state.auth.userInfor);
   const navigate = useNavigate();
+  const privateRoute = ["/tree", "/financial", "/list", "/profile"];
+  const publicRoute = ["/register", "/login"];
+  const location = useLocation();
   useEffect(() => {
-    if (!userInfor) {
+    console.log("userInforuserInfor",userInfor,privateRoute.includes(location.pathname))
+    if (!userInfor && privateRoute.includes(location.pathname)) {
+      console.log(111111111)
       navigate("/login");
-    } else {
+    }
+    if (userInfor && publicRoute.includes(location.pathname)) {
       navigate("/");
     }
-  }, [userInfor]);
+  }, [userInfor, location.pathname]);
 
   return (
     <>
