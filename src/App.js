@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Header from "./components/layout/Header/Header";
 import Home from "./pages/Home/Home";
 import ListMember from "./pages/ListMember/ListMember";
@@ -11,9 +11,19 @@ import { PersistGate } from "redux-persist/integration/react";
 import Tree from "./pages/Tree/Tree";
 import Financial from "./pages/FinancialManagement/Financial";
 import Profile from "./pages/Profile/Profile";
+import { useEffect } from "react";
 
 const RootRoute = () => {
   const userInfor = useSelector((state) => state.auth.userInfor);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userInfor) {
+      navigate("/login");
+    } else {
+      navigate("/");
+    }
+  }, [userInfor]);
+
   return (
     <>
       {userInfor ? (

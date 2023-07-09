@@ -41,14 +41,6 @@ const authSlice = createSlice({
       state.userInfor = payload;
     },
     storeDeleteUserInfor: (state, { payload }) => {
-      // const newUserInfor = [...state.userInfor];
-      // const index = newUserInfor
-      //   .map(function (element) {
-      //     return element.id;
-      //   })
-      //   .indexOf(payload);
-      // newUserInfor.splice(index, 1);
-      // state.userInfor = newUserInfor;
       state.userInfor = null;
     },
   },
