@@ -3,15 +3,17 @@ import dayjs from "dayjs";
 import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MemberSelect from "../../../components/CustomSelect/MemberSelect";
+import { downloadExcel } from "../../../helpers/exportData";
 import { formatMoney } from "../../../helpers/formatMoney";
 import {
   storeAddSponsor,
   storeDeleteSponsor,
 } from "../../../store/database-reducer";
 import { ItemInfor } from "../../ListMember/listMemberStyle";
-import { ButtonCreate } from "../CollectTab/tabThuStyle";
+import { ButtonCreate, ButtonExportData } from "../CollectTab/tabThuStyle";
 
 const Sponsor = () => {
+  const userInfor = useSelector((state) => state.auth.userInfor);
   const dispatch = useDispatch();
   const handleDelete = (key) => {
     dispatch(storeDeleteSponsor(key));
@@ -59,11 +61,10 @@ const Sponsor = () => {
       render: (text) => <a href="#/">{text}</a>,
     },
     {
-      title: "Số tiền",
+      title: "Số tiền(VNĐ)",
       dataIndex: "money",
       key: "money",
       render: (text) => <div>{formatMoney(text)}</div>,
-
     },
     {
       title: "Thời gian",
@@ -85,9 +86,17 @@ const Sponsor = () => {
   ];
   return (
     <div>
-      <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
-        Tạo khoản tài trợ
-      </ButtonCreate>
+      {userInfor.isOwner && (
+        <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
+          Tạo khoản tài trợ
+        </ButtonCreate>
+      )}
+        <ButtonExportData
+        type="primary"
+        onClick={() => downloadExcel  (data, "Thu")}
+      >
+        Xuất dữ liệu
+      </ButtonExportData>
       {isCreate && (
         <Modal
           title="Tạo phiếu tài trợ"

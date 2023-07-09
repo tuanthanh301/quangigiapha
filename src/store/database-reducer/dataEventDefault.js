@@ -31,4 +31,12 @@ export const dataEventDefault = [
         desc: "Giỗ họ",
         nom: 20,
     },
+    {
+        id: 5,
+        name: "Đông chí",
+        location: "Nhà thờ họ",
+        date: "2023/06/06",
+        desc: "Đông chí",
+        nom: 20,
+    },
 ];

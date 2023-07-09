@@ -66,7 +66,7 @@ const TabThu = () => {
       render: (text) => <a href="#/">{text}</a>,
     },
     {
-      title: "Số tiền",
+      title: "Số tiền(VNĐ)",
       dataIndex: "money",
       key: "money",
       render: (text) => <div>{formatMoney(text)}</div>,
@@ -92,14 +92,17 @@ const TabThu = () => {
     return dataRevenue.find((element) => element.id === id);
   };
 
- 
-
   return (
     <div>
-      <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
-        Tạo khoản thu
-      </ButtonCreate>
-      <ButtonExportData type="primary" onClick={() => downloadExcel(data, "Thu")}>
+      {userInfor.isOwner && (
+        <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
+          Tạo khoản thu
+        </ButtonCreate>
+      )}
+      <ButtonExportData
+        type="primary"
+        onClick={() => downloadExcel(data, "Thu")}
+      >
         Xuất dữ liệu
       </ButtonExportData>
       {isCreate && (

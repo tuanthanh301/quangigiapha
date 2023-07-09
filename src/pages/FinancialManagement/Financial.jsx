@@ -5,6 +5,7 @@ import {
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
 import React, { useState } from "react";
+import Account from "./Account";
 import CollectMoney from "./CollectMoney";
 import Event from "./Event";
 import Expenses from "./Expenses";
@@ -87,6 +88,8 @@ const Financial = () => {
               {screen === "Chi" && <Expenses />}
               {screen === "Báo cáo" && <Report />}
               {screen === "Sự kiện" && <Event />}
+              {screen === "Tài khoản" && <Account />}
+
             </Content>
           </Layout>
         </Layout>

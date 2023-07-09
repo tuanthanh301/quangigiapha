@@ -59,9 +59,11 @@ const EventList = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-           {userInfor.isOwner && (<a href="#/" onClick={() => handleDelete(record.id)}>
-            Delete
-          </a>)}
+          {userInfor.isOwner && (
+            <a href="#/" onClick={() => handleDelete(record.id)}>
+              Delete
+            </a>
+          )}
           {/* <a
             href="#/"
             onClick={() => {
@@ -78,11 +80,15 @@ const EventList = () => {
   return (
     <div>
       <Table columns={columns} dataSource={data} />
-
-      <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
-        Thêm sự kiện
-      </ButtonCreate>
-      <ButtonExportData type="primary" onClick={() => downloadExcel(data, "Event")}>
+      {userInfor.isOwner && (
+        <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
+          Thêm sự kiện
+        </ButtonCreate>
+      )}
+      <ButtonExportData
+        type="primary"
+        onClick={() => downloadExcel(data, "Event")}
+      >
         Xuất dữ liệu
       </ButtonExportData>
       {isCreate && (
@@ -116,7 +122,7 @@ const EventList = () => {
               placeholder="Nhập địa điểm"
             />
             <div className="form-div">Ngày diễn ra:</div>
-            <DatePicker 
+            <DatePicker
               format="YYYY/MM/DD"
               className="input-create"
               onChange={(date, dateString) =>

@@ -125,9 +125,6 @@ const ListMember = () => {
   const onCancelEdit = () => {
     setIsEdit(false);
   };
-  const handleCreate = () => {
-    setIsCreate(true);
-  };
   const handleSavedNewMembers = () => {
     dispatch(storeAddMember(newMemberSelect));
     setIsCreate(false);
@@ -142,10 +139,10 @@ const ListMember = () => {
       <Table columns={columns} dataSource={data} />
 
       {userInfor.isOwner && (
-        <ButtonCreate type="primary" onClick={handleCreate}>
+        <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
           Create Member
         </ButtonCreate>
-      )}
+        )}
       <ButtonExportDataListMember
         type="primary"
         onClick={() =>
@@ -342,8 +339,8 @@ const ListMember = () => {
               Name of Husband/Wife:{" "}
               {findMemberById(memberSelect?.pids[0])?.name}
             </p>
-            <p>Mother: {memberSelect.mid}</p>
-            <p>Father: {memberSelect.fid}</p>
+            <p>Mother: {findMemberById(memberSelect?.mid)?.name}</p>
+            <p>Father: {findMemberById(memberSelect?.fid)?.name}</p>
             <p>Gender: {genderToGender(memberSelect.gender)}</p>
             <p>Phone number: {memberSelect.phone}</p>
             <p>Tags: {memberSelect.tags}</p>
@@ -396,7 +393,7 @@ const ListMember = () => {
             />
             <div className="form-div">Mother:</div>
             <MotherSelect
-              value={memberSelect.mid}
+              value={findMemberById(memberSelect?.mid)?.name}
               setValue={(e) =>
                 setMemberSelect({
                   ...memberSelect,
@@ -406,7 +403,7 @@ const ListMember = () => {
             />
             <div className="form-div">Father:</div>
             <FatherSelect
-              value={memberSelect.fid}
+              value={findMemberById(memberSelect?.fid)?.name}
               setValue={(e) =>
                 setMemberSelect({
                   ...memberSelect,

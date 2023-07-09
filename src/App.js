@@ -26,9 +26,8 @@ const RootRoute = () => {
   const publicRoute = ["/register", "/login"];
   const location = useLocation();
   useEffect(() => {
-    console.log("userInforuserInfor",userInfor,privateRoute.includes(location.pathname))
+    // console.log("userInforuserInfor",userInfor,privateRoute.includes(location.pathname))
     if (!userInfor && privateRoute.includes(location.pathname)) {
-      console.log(111111111)
       navigate("/login");
     }
     if (userInfor && publicRoute.includes(location.pathname)) {

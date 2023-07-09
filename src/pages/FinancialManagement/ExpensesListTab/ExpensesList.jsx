@@ -77,10 +77,15 @@ const ExpensesList = () => {
   };
   return (
     <div>
-      <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
-        Tạo phiếu chi
-      </ButtonCreate>
-      <ButtonExportData type="primary" onClick={() => downloadExcel(data, "Chi")}>
+      {userInfor.isOwner && (
+        <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
+          Tạo phiếu chi
+        </ButtonCreate>
+      )}
+      <ButtonExportData
+        type="primary"
+        onClick={() => downloadExcel(data, "Chi")}
+      >
         Xuất dữ liệu
       </ButtonExportData>
       {isCreate && (
