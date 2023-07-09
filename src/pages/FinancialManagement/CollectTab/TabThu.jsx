@@ -4,6 +4,7 @@ import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MemberSelect from "../../../components/CustomSelect/MemberSelect";
 import RevenueSelect from "../../../components/CustomSelect/RevenueSelect";
+import { formatMoney } from "../../../helpers/formatMoney";
 import {
   storeAddCollect,
   storeDeleteCollect,
@@ -22,15 +23,14 @@ const TabThu = () => {
   const [isCreate, setIsCreate] = useState(false);
   const [newCollect, setNewCollect] = useState();
   const handleSaveCollect = () => {
-    const inforCollect = 
-   {
+    const inforCollect = {
       revenue: findMoneyOfRevenue(newCollect?.idOfRevenue).revenue,
       idOfmember: newCollect.idOfMember,
       money: findMoneyOfRevenue(newCollect?.idOfRevenue)?.money,
-      dateOfThu: dayjs().format("YYYY/MM/DD")
+      dateOfThu: dayjs().format("YYYY/MM/DD"),
     };
     dispatch(storeAddCollect(inforCollect));
-    setNewCollect()
+    setNewCollect();
     setIsCreate(false);
   };
   const handleDataTable = useMemo(() => {
@@ -66,6 +66,7 @@ const TabThu = () => {
       title: "Số tiền",
       dataIndex: "money",
       key: "money",
+      render: (text) => <div>{formatMoney(text)}</div>,
     },
     {
       title: "Ngày thu",
@@ -93,39 +94,41 @@ const TabThu = () => {
       <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
         Tạo khoản thu
       </ButtonCreate>
-      {isCreate &&<Modal
-        title="Create Member"
-        open={isCreate}
-        onOk={handleSaveCollect}
-        onCancel={() => setIsCreate(false)}
-      >
-        <ItemInfor>
-          <div className="form-div">Tên khoản thu:</div>
-          <RevenueSelect
-            setValue={(e) =>
-              setNewCollect({
-                ...newCollect,
-                idOfRevenue: e,
-              })
-            }
-          />
-          <div className="form-div">Số tiền:</div>
-          <Input
-            className="input-create"
-            value={findMoneyOfRevenue(newCollect?.idOfRevenue)?.money}
-          />
-          <div className="form-div">Tên:</div>
-          <MemberSelect
-            className="input-create"
-            setValue={(e) =>
-              setNewCollect({
-                ...newCollect,
-                idOfMember: e,
-              })
-            }
-          />
-        </ItemInfor>
-      </Modal>}
+      {isCreate && (
+        <Modal
+          title="Create Member"
+          open={isCreate}
+          onOk={handleSaveCollect}
+          onCancel={() => setIsCreate(false)}
+        >
+          <ItemInfor>
+            <div className="form-div">Tên khoản thu:</div>
+            <RevenueSelect
+              setValue={(e) =>
+                setNewCollect({
+                  ...newCollect,
+                  idOfRevenue: e,
+                })
+              }
+            />
+            <div className="form-div">Số tiền:</div>
+            <Input
+              className="input-create"
+              value={findMoneyOfRevenue(newCollect?.idOfRevenue)?.money}
+            />
+            <div className="form-div">Tên:</div>
+            <MemberSelect
+              className="input-create"
+              setValue={(e) =>
+                setNewCollect({
+                  ...newCollect,
+                  idOfMember: e,
+                })
+              }
+            />
+          </ItemInfor>
+        </Modal>
+      )}
       <Table
         columns={columns}
         dataSource={handleDataTable}

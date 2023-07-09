@@ -3,10 +3,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 function mergeExpenses(expenses) {
-  var mergedExpenses = [];
+  const mergedExpenses = [];
 
   expenses.forEach(function(expense) {
-    var existingExpense = mergedExpenses.find(function(item) {
+    const existingExpense = mergedExpenses.find(function(item) {
       return item.expense === expense.expense;
     });
 
@@ -29,7 +29,7 @@ const PieChart = () => {
   const dataExpense = useSelector((state) => state.database.dataExpense);
 
   const data = mergeExpenses(dataExpense).map((element , index) => ({
-    type:element.expense,
+    type: element.expense,
     value: element.money,
   }));
   const config = {

@@ -71,15 +71,22 @@ const Financial = () => {
                 margin: "16px 0",
               }}
             >
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
+              {screen === "Thu" || screen === "Chi" || screen === "Báo cáo" ? (
+                <>
+                  <Breadcrumb.Item>Tài Chính</Breadcrumb.Item>
+                  <Breadcrumb.Item>{screen}</Breadcrumb.Item>
+                </>
+              ) : (
+                <Breadcrumb.Item>{screen}</Breadcrumb.Item>
+              )}
+
               {/* <Breadcrumb.Item>App</Breadcrumb.Item> */}
             </Breadcrumb>
             <Content className="content-tab">
               {screen === "Thu" && <CollectMoney />}
               {screen === "Chi" && <Expenses />}
-              {screen === "Báo cáo" && <Report/>}
-              {screen === "Sự kiện" && <Event/>}
+              {screen === "Báo cáo" && <Report />}
+              {screen === "Sự kiện" && <Event />}
             </Content>
           </Layout>
         </Layout>

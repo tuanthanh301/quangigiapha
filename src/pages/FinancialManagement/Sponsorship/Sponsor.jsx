@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MemberSelect from "../../../components/CustomSelect/MemberSelect";
+import { formatMoney } from "../../../helpers/formatMoney";
 import {
   storeAddSponsor,
   storeDeleteSponsor,
@@ -61,6 +62,8 @@ const Sponsor = () => {
       title: "Số tiền",
       dataIndex: "money",
       key: "money",
+      render: (text) => <div>{formatMoney(text)}</div>,
+
     },
     {
       title: "Thời gian",

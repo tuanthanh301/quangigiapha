@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ExpenseSelect from "../../../components/CustomSelect/ExpenseSelect";
+import { formatMoney } from "../../../helpers/formatMoney";
 import { storeAddExpense, storeDeleteExpense } from "../../../store/database-reducer";
 import { ItemInfor } from "../../ListMember/listMemberStyle";
 import { ButtonCreate } from "../CollectTab/tabThuStyle";
@@ -43,6 +44,8 @@ const ExpensesList = () => {
       title: "Số tiền (VNĐ)",
       dataIndex: "money",
       key: "money",
+      render: (text) => <div>{formatMoney(text)}</div>,
+
     },
     {
       title: "Thời gian",

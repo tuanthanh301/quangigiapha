@@ -1,6 +1,7 @@
 import { Input, Modal, Space, Table } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { formatMoney } from "../../../helpers/formatMoney";
 import {
   storeAddRevenue,
   storeDeleteRevenue,
@@ -35,6 +36,7 @@ const RevenueList = () => {
       title: "Số tiền",
       dataIndex: "money",
       key: "money",
+      render: (text) => <div>{formatMoney(text)}</div>,
     },
     {
       title: "Action",

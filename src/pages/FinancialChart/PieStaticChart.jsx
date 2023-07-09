@@ -2,19 +2,19 @@ import { Pie } from "@ant-design/plots";
 import React from "react";
 import { useSelector } from "react-redux";
 
-function mergeExpenses(expenses) {
+function mergeExpenses(expenses, arrSponsor) {
   var mergedExpenses = [];
 
-  expenses.forEach(function(expense) {
+  [...expenses,...arrSponsor].forEach(function(expense) {
     var existingExpense = mergedExpenses.find(function(item) {
-      return item.type === expense.revenue;
+      return item.type === expense.revenue || item.type === expense.sponsorship;
     });
 
     if (existingExpense) {
       existingExpense.value += expense.money;
     } else {
       mergedExpenses.push({
-        type: expense.revenue,
+        type: expense.revenue || expense.sponsorship,
         value: expense.money,
       });
     }
@@ -25,8 +25,9 @@ function mergeExpenses(expenses) {
 
 const PieStaticChart = () => {
   const dataCollect = useSelector((state) => state.database.dataCollect);
+  const dataSponsor = useSelector((state) => state.database.dataSponsor);
 
-  const data = mergeExpenses(dataCollect);
+  const data = mergeExpenses(dataCollect,dataSponsor);
   const config = {
     appendPadding: 10,
     data,

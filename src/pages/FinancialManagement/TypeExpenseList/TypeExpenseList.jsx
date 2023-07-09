@@ -1,6 +1,7 @@
 import { Input, Modal, Space, Table } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { formatMoney } from "../../../helpers/formatMoney";
 import { storeAddTypeExpense, storeDeleteTypeExpense } from "../../../store/database-reducer";
 
 import { ButtonCreate } from "../CollectTab/tabThuStyle";
@@ -33,6 +34,8 @@ const TypeExpenseList = () => {
       title: "Số tiền",
       dataIndex: "money",
       key: "money",
+      render: (text) => <div>{formatMoney(text)}</div>,
+
     },
     {
       title: "Action",
