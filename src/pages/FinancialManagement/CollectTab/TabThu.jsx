@@ -13,6 +13,8 @@ import { ItemInfor } from "../../ListMember/listMemberStyle";
 import { ButtonCreate } from "./tabThuStyle";
 
 const TabThu = () => {
+  const userInfor = useSelector((state) => state.auth.userInfor);
+
   const dispatch = useDispatch();
   const handleDelete = (key) => {
     dispatch(storeDeleteCollect(key));
@@ -78,10 +80,9 @@ const TabThu = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <a href="#/" onClick={() => handleDelete(record.id)}>
-            Delete{" "}
-          </a>
-          <a href="#/">Edit</a>
+          {userInfor.isOwner && (
+            <a onClick={() => handleDelete(record.id)}>Delete</a>
+          )}
         </Space>
       ),
     },

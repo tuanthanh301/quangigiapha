@@ -4,7 +4,10 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ExpenseSelect from "../../../components/CustomSelect/ExpenseSelect";
 import { formatMoney } from "../../../helpers/formatMoney";
-import { storeAddExpense, storeDeleteExpense } from "../../../store/database-reducer";
+import {
+  storeAddExpense,
+  storeDeleteExpense,
+} from "../../../store/database-reducer";
 import { ItemInfor } from "../../ListMember/listMemberStyle";
 import { ButtonCreate } from "../CollectTab/tabThuStyle";
 
@@ -13,20 +16,22 @@ const ExpensesList = () => {
   const handleDelete = (key) => {
     dispatch(storeDeleteExpense(key));
   };
+  const userInfor = useSelector((state) => state.auth.userInfor);
   const data = useSelector((state) => state.database.dataExpense);
-  const dataTypeExpense = useSelector((state) => state.database.dataTypeExpense);
+  const dataTypeExpense = useSelector(
+    (state) => state.database.dataTypeExpense
+  );
 
   const [isCreate, setIsCreate] = useState(false);
   const [newExpense, setNewExpense] = useState();
   const handleSaveExpense = () => {
-    const inforExpense = 
-   {
+    const inforExpense = {
       expense: findMoneyOfExpense(newExpense?.idOfExpense).expense,
       money: findMoneyOfExpense(newExpense?.idOfExpense)?.money,
       dNt: dayjs().format("YYYY/MM/DD"),
     };
     dispatch(storeAddExpense(inforExpense));
-    setNewExpense()
+    setNewExpense();
     setIsCreate(false);
   };
   const columns = [
@@ -45,7 +50,6 @@ const ExpensesList = () => {
       dataIndex: "money",
       key: "money",
       render: (text) => <div>{formatMoney(text)}</div>,
-
     },
     {
       title: "Thời gian",
@@ -57,15 +61,17 @@ const ExpensesList = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <a href="#/" onClick={() => handleDelete(record.id)}>
-            Delete{" "}
-          </a>
+          {userInfor.isOwner && (
+            <a href="#/" onClick={() => handleDelete(record.id)}>
+              Delete{" "}
+            </a>
+          )}
           {/* <a href="#/">Edit</a>  */}
         </Space>
       ),
     },
   ];
-  const findMoneyOfExpense= (id) => {
+  const findMoneyOfExpense = (id) => {
     return dataTypeExpense.find((element) => element.id === id);
   };
   return (
@@ -80,7 +86,7 @@ const ExpensesList = () => {
           onOk={handleSaveExpense}
           onCancel={() => setIsCreate(false)}
         >
-          <ItemInfor  >
+          <ItemInfor>
             <div className="form-div">Tên loại chi:</div>
             <ExpenseSelect
               setValue={(e) =>

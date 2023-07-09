@@ -16,6 +16,8 @@ import MotherSelect from "../../components/CustomSelect/MotherSelect";
 import FatherSelect from "../../components/CustomSelect/FatherSelect";
 
 const ListMember = () => {
+  const userInfor = useSelector((state) => state.auth.userInfor);
+
   const columns = [
     {
       title: "ID",
@@ -37,7 +39,11 @@ const ListMember = () => {
       title: "Gender",
       dataIndex: "gender",
       key: "gender",
-      render: (text) => <div style={{color: text === "male" ? "#0984e3" : " #ff7675"}}>{genderToGender(text)}</div>
+      render: (text) => (
+        <div style={{ color: text === "male" ? "#0984e3" : " #ff7675" }}>
+          {genderToGender(text)}
+        </div>
+      ),
     },
     {
       title: "Phone Number",
@@ -66,18 +72,22 @@ const ListMember = () => {
           >
             Details
           </a>
-          <a href="#/" onClick={() => handleDelete(record.id)}>
-            Delete
-          </a>
-          <a
-            href="#/"
-            onClick={() => {
-              setIsEdit(true);
-              setMemberSelect(record);
-            }}
-          >
-            Edit
-          </a>
+          {userInfor.isOwner && (
+            <>
+              <a href="#/" onClick={() => handleDelete(record.id)}>
+                Delete
+              </a>
+              <a
+                href="#/"
+                onClick={() => {
+                  setIsEdit(true);
+                  setMemberSelect(record);
+                }}
+              >
+                Edit
+              </a>{" "}
+            </>
+          )}
         </Space>
       ),
     },
@@ -126,9 +136,11 @@ const ListMember = () => {
     <div>
       <Table columns={columns} dataSource={data} />
 
-      <ButtonCreate type="primary" onClick={handleCreate}>
-        Create Member{" "}
-      </ButtonCreate>
+      {userInfor.isOwner && (
+        <ButtonCreate type="primary" onClick={handleCreate}>
+          Create Member{" "}
+        </ButtonCreate>
+      )}
       <Modal
         title="Create Member"
         open={isCreate}
@@ -295,7 +307,10 @@ const ListMember = () => {
           <ItemInfor>
             <p>Name: {memberSelect.name}</p>
             <p>Date of birth: {memberSelect.dob}</p>
-            <p>Name of Husband/Wife: {findMemberById(memberSelect?.pids[0])?.name}</p>
+            <p>
+              Name of Husband/Wife:{" "}
+              {findMemberById(memberSelect?.pids[0])?.name}
+            </p>
             <p>Mother: {memberSelect.mid}</p>
             <p>Father: {memberSelect.fid}</p>
             <p>Gender: {genderToGender(memberSelect.gender)}</p>

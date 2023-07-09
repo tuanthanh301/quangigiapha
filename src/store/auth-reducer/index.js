@@ -5,11 +5,20 @@ const initialState = {
   listAccount: [
     {
       id: 1,
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
+      firstName: "admin",
+      lastName: "admin",
+      email: "admin@gmail.com",
+      password: "123",
+      confirmPassword: "123",
+      isOwner: true,
+    },
+    {
+      id: 1,
+      firstName: "Nguyen",
+      lastName: "Thanh",
+      email: "thanh123@gmail.com",
+      password: "123",
+      confirmPassword: "123",
     },
   ],
 };
@@ -45,6 +54,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { storeAddAccount, storeSetUserInfor, storeDeleteUserInfor } = authSlice.actions;
+export const { storeAddAccount, storeSetUserInfor, storeDeleteUserInfor } =
+  authSlice.actions;
 
 export default authSlice.reducer;

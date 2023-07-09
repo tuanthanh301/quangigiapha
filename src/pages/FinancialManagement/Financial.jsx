@@ -13,7 +13,7 @@ import Report from "./Report";
 const { Content, Sider } = Layout;
 
 const menuItem = ["Tài chính", "Sự kiện", "Tài khoản"];
-const childrenItem = [["Thu", "Chi", "Báo cáo"]];
+const childrenItem = [["Báo cáo","Thu", "Chi"]];
 
 const items2 = [LaptopOutlined, NotificationOutlined, UserOutlined].map(
   (icon, index) => {
@@ -32,7 +32,7 @@ const items2 = [LaptopOutlined, NotificationOutlined, UserOutlined].map(
 );
 
 const Financial = () => {
-  const [screen, setScreen] = useState("Thu");
+  const [screen, setScreen] = useState("Báo cáo");
 
   return (
     <FinancialStyle>

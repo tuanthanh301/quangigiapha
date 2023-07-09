@@ -10,6 +10,7 @@ import { ButtonCreate } from "../CollectTab/tabThuStyle";
 
 const EventList = () => {
   const dispatch = useDispatch();
+  const userInfor = useSelector((state) => state.auth.userInfor);
   const data = useSelector((state) => state.database.dataEvent);
   const [isCreate, setIsCreate] = useState(false);
   const [newEvent, setNewEvent] = useState();
@@ -57,9 +58,9 @@ const EventList = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <a href="#/" onClick={() => handleDelete(record.id)}>
+           {userInfor.isOwner && (<a href="#/" onClick={() => handleDelete(record.id)}>
             Delete
-          </a>
+          </a>)}
           {/* <a
             href="#/"
             onClick={() => {
