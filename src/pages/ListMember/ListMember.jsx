@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import dayjs from "dayjs";
 import { DatePicker, Input, Modal, Space, Table, Tag } from "antd";
-import { ButtonCreate, ItemInfor } from "./listMemberStyle";
+import {
+  ButtonCreate,
+  ButtonExportDataListMember,
+  ItemInfor,
+} from "./listMemberStyle";
 import { useDispatch, useSelector } from "react-redux";
 import {
   storeAddMember,
@@ -14,6 +18,7 @@ import { genderToGender, idToDegree } from "../../helpers/image";
 import SelectGender from "../../components/CustomSelect/SelectGender";
 import MotherSelect from "../../components/CustomSelect/MotherSelect";
 import FatherSelect from "../../components/CustomSelect/FatherSelect";
+import { downloadExcel } from "../../helpers/exportData";
 
 const ListMember = () => {
   const userInfor = useSelector((state) => state.auth.userInfor);
@@ -129,7 +134,7 @@ const ListMember = () => {
   };
 
   const findMemberById = (id) => {
-    return data.find((element) => element.id === id);
+    return data?.find((element) => element.id === id);
   };
 
   return (
@@ -138,9 +143,35 @@ const ListMember = () => {
 
       {userInfor.isOwner && (
         <ButtonCreate type="primary" onClick={handleCreate}>
-          Create Member{" "}
+          Create Member
         </ButtonCreate>
       )}
+      <ButtonExportDataListMember
+        type="primary"
+        onClick={() =>
+          downloadExcel(
+            data.map((element) => ({
+              "Tên ": element.name,
+              "Tên Vợ": element?.pids?.length > 0
+                ? findMemberById(element?.pids[0])?.name
+                : "",
+              "Tên mẹ": element?.mid ? findMemberById(element?.mid)?.name : "",
+              "Tên bố": element?.fid ? findMemberById(element?.fid)?.name : "",
+              "Ngày sinh": element?.dob,
+              "Giới tính":element?.gender === "male" ? "nam" : "nữ",
+              "Điện thoại": element?.phone,
+              "Vai trò": element?.tags,
+              "Nghề nghiệp": element?.job,
+              "Bằng cấp": element?.degree,
+              "Trạng thái": element?.status,
+              "Link ảnh": element?.img,
+            })),
+            "DANH_SACH_THANH_VIEN"
+          )
+        }
+      >
+        Xuất dữ liệu
+      </ButtonExportDataListMember>
       <Modal
         title="Create Member"
         open={isCreate}

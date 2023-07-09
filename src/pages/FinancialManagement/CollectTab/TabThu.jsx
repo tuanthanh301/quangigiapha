@@ -4,13 +4,14 @@ import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MemberSelect from "../../../components/CustomSelect/MemberSelect";
 import RevenueSelect from "../../../components/CustomSelect/RevenueSelect";
+import { downloadExcel } from "../../../helpers/exportData";
 import { formatMoney } from "../../../helpers/formatMoney";
 import {
   storeAddCollect,
   storeDeleteCollect,
 } from "../../../store/database-reducer";
 import { ItemInfor } from "../../ListMember/listMemberStyle";
-import { ButtonCreate } from "./tabThuStyle";
+import { ButtonCreate, ButtonExportData } from "./tabThuStyle";
 
 const TabThu = () => {
   const userInfor = useSelector((state) => state.auth.userInfor);
@@ -90,11 +91,17 @@ const TabThu = () => {
   const findMoneyOfRevenue = (id) => {
     return dataRevenue.find((element) => element.id === id);
   };
+
+ 
+
   return (
     <div>
       <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
         Tạo khoản thu
       </ButtonCreate>
+      <ButtonExportData type="primary" onClick={() => downloadExcel(data, "Thu")}>
+        Xuất dữ liệu
+      </ButtonExportData>
       {isCreate && (
         <Modal
           title="Create Member"

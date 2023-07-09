@@ -1,12 +1,13 @@
 import { DatePicker, Input, Modal, Space, Table } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { downloadExcel } from "../../../helpers/exportData";
 import {
   storeAddEvent,
   storeDeleteEvent,
 } from "../../../store/database-reducer";
 import { ItemInfor } from "../../ListMember/listMemberStyle";
-import { ButtonCreate } from "../CollectTab/tabThuStyle";
+import { ButtonCreate, ButtonExportData } from "../CollectTab/tabThuStyle";
 
 const EventList = () => {
   const dispatch = useDispatch();
@@ -81,6 +82,9 @@ const EventList = () => {
       <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
         Thêm sự kiện
       </ButtonCreate>
+      <ButtonExportData type="primary" onClick={() => downloadExcel(data, "Event")}>
+        Xuất dữ liệu
+      </ButtonExportData>
       {isCreate && (
         <Modal
           title="Tạo phiếu tài trợ"

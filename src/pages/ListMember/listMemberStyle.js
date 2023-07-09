@@ -22,4 +22,9 @@ export const ButtonCreate = styled(Button)`
     right: 10px;
 
 `
+export const ButtonExportDataListMember = styled(Button)`
+    position: absolute;
+    top: 55px;
+    right: 150px;
 
+`

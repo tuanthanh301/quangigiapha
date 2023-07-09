@@ -22,3 +22,11 @@ export const ButtonCreate = styled(Button)`
   margin-top: -58px;
   z-index: 2;
 `;
+
+export const ButtonExportData = styled(Button)`
+  position: absolute;
+  top: 0;
+  right: 150px;
+  margin-top: -58px;
+  z-index: 2;
+`;

@@ -3,13 +3,14 @@ import dayjs from "dayjs";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ExpenseSelect from "../../../components/CustomSelect/ExpenseSelect";
+import { downloadExcel } from "../../../helpers/exportData";
 import { formatMoney } from "../../../helpers/formatMoney";
 import {
   storeAddExpense,
   storeDeleteExpense,
 } from "../../../store/database-reducer";
 import { ItemInfor } from "../../ListMember/listMemberStyle";
-import { ButtonCreate } from "../CollectTab/tabThuStyle";
+import { ButtonCreate, ButtonExportData } from "../CollectTab/tabThuStyle";
 
 const ExpensesList = () => {
   const dispatch = useDispatch();
@@ -79,6 +80,9 @@ const ExpensesList = () => {
       <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
         Tạo phiếu chi
       </ButtonCreate>
+      <ButtonExportData type="primary" onClick={() => downloadExcel(data, "Chi")}>
+        Xuất dữ liệu
+      </ButtonExportData>
       {isCreate && (
         <Modal
           title="Create Member"
