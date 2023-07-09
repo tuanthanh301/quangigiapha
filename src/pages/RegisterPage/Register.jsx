@@ -63,12 +63,11 @@ const Register = () => {
     if (validateForm()) {
       dispatch(storeAddAccount(formValue))
       navigate("/login");
-      // console.log("Form value", formValue);
     } else {
       console.log("Form invalid");
     }
   };
-  console.log(formError);
+
   return (
     <BackGroundRegister>
       <div className="register-container">

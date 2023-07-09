@@ -2,6 +2,7 @@ import { Tabs } from "antd";
 import React from "react";
 import TabThu from "./CollectTab/TabThu";
 import RevenueList from "./RevenueListTab/RevenueList";
+import Sponsor from "./Sponsorship/Sponsor";
 
 const CollectMoney = () => {
   const onChange = (key) => {
@@ -16,7 +17,7 @@ const CollectMoney = () => {
     {
       key: "2",
       label: `Tài trợ`,
-      children: `Content of Tab Pane 2`,
+      children: <Sponsor/>,
     },
     {
       key: "3",

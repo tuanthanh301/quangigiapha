@@ -21,9 +21,6 @@ const TabThu = () => {
   const database = useSelector((state) => state.database.database);
   const [isCreate, setIsCreate] = useState(false);
   const [newCollect, setNewCollect] = useState();
-  const handleCreate = () => {
-    setIsCreate(true);
-  };
   const handleSaveCollect = () => {
     const inforCollect = 
    {
@@ -33,6 +30,7 @@ const TabThu = () => {
       dateOfThu: dayjs().format("YYYY/MM/DD")
     };
     dispatch(storeAddCollect(inforCollect));
+    setNewCollect()
     setIsCreate(false);
   };
   const handleDataTable = useMemo(() => {
@@ -92,10 +90,10 @@ const TabThu = () => {
   };
   return (
     <div>
-      <ButtonCreate type="primary" onClick={handleCreate}>
+      <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
         Tạo khoản thu
       </ButtonCreate>
-      <Modal
+      {isCreate &&<Modal
         title="Create Member"
         open={isCreate}
         onOk={handleSaveCollect}
@@ -127,11 +125,11 @@ const TabThu = () => {
             }
           />
         </ItemInfor>
-      </Modal>
+      </Modal>}
       <Table
         columns={columns}
         dataSource={handleDataTable}
-        pagination={{ current: 1, pageSize: 5 }}
+        pagination={{ pageSize: 5 }}
       />
     </div>
   );

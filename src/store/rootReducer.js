@@ -7,7 +7,7 @@ import databaseReducer from './database-reducer'
 export const databasePersistConfig = {
     key: 'database',
     storage: localStorage,
-    whitelist: ["database","dataCollect", "dataRevenue"],
+    whitelist: ["database","dataCollect", "dataRevenue", "dataSponsor", "dataExpense", "dataTypeExpense","dataEvent"],
 }
 export const authPersistConfig = {
     key: 'auth',

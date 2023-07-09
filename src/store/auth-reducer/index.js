@@ -19,7 +19,6 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     storeAddAccount: (state, { payload }) => {
-      console.log("tate.listAccount", state.listAccount);
       const max = Math.max(...state.listAccount.map((acc) => acc.id)) + 1;
       state.listAccount = [
         ...state.listAccount,

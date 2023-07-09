@@ -4,15 +4,17 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import CollectMoney from "./CollectMoney";
+import Event from "./Event";
+import Expenses from "./Expenses";
 import { FinancialStyle } from "./financialStyle";
 const { Content, Sider } = Layout;
 
 const menuItem = ["Tài chính", "Sự kiện", "Tài khoản"];
 const childrenItem = [["Thu", "Chi", "Báo cáo"]];
 
-const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
+const items2 = [LaptopOutlined, NotificationOutlined, UserOutlined].map(
   (icon, index) => {
     return {
       key: menuItem[index],
@@ -27,7 +29,10 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
     };
   }
 );
+
 const Financial = () => {
+  const [screen, setScreen] = useState("Thu");
+
   return (
     <FinancialStyle>
       <Layout>
@@ -42,10 +47,10 @@ const Financial = () => {
           >
             <Menu
               mode="inline"
-              defaultSelectedKeys={["1"]}
-              defaultOpenKeys={["sub1"]}
+              defaultSelectedKeys={screen}
+              defaultOpenKeys={["Tài chính"]}
               onSelect={(e) => {
-                console.log(e);
+                setScreen(e.key);
               }}
               style={{
                 height: "100%",
@@ -67,12 +72,13 @@ const Financial = () => {
             >
               <Breadcrumb.Item>Home</Breadcrumb.Item>
               <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item>
+              {/* <Breadcrumb.Item>App</Breadcrumb.Item> */}
             </Breadcrumb>
-            <Content
-            className="content-tab"
-            >
-              <CollectMoney />
+            <Content className="content-tab">
+              {screen === "Thu" && <CollectMoney />}
+              {screen === "Chi" && <Expenses />}
+              {/* {screen === "Báo cáo" && } */}
+              {screen === "Sự kiện" && <Event/>}
             </Content>
           </Layout>
         </Layout>

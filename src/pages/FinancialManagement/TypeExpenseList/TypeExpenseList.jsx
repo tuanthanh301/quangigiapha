@@ -1,23 +1,21 @@
 import { Input, Modal, Space, Table } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  storeAddRevenue,
-  storeDeleteRevenue,
-} from "../../../store/database-reducer";
+import { storeAddTypeExpense, storeDeleteTypeExpense } from "../../../store/database-reducer";
+
 import { ButtonCreate } from "../CollectTab/tabThuStyle";
 
-const RevenueList = () => {
+const TypeExpenseList = () => {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.database.dataRevenue);
+  const data = useSelector((state) => state.database.dataTypeExpense);
   const [isCreate, setIsCreate] = useState(false);
-  const [newRevenue, setNewRevenue] = useState();
+  const [newTypeExpense, setNewTypeExpense] = useState();
   const handleDelete = (key) => {
-    dispatch(storeDeleteRevenue(key));
+    dispatch(storeDeleteTypeExpense(key));
   };
 
-  const handleSaveRevenue = (key) => {
-    dispatch(storeAddRevenue(newRevenue));
+  const handleSaveTypeExpense = (key) => {
+    dispatch(storeAddTypeExpense(newTypeExpense));
     setIsCreate(false);
   };
   const columns = [
@@ -27,9 +25,9 @@ const RevenueList = () => {
       key: "id",
     },
     {
-      title: "Tên khoản thu",
-      dataIndex: "revenue",
-      key: "revenue",
+      title: "Loại chi",
+      dataIndex: "expense",
+      key: "expense",
     },
     {
       title: "Số tiền",
@@ -52,31 +50,31 @@ const RevenueList = () => {
   return (
     <div>
       <ButtonCreate type="primary" onClick={() => setIsCreate(true)}>
-        Thiết lập khoản thu
+        Thêm mới
       </ButtonCreate>
       {isCreate &&<Modal
-        title="Thiết lập khoản thu"
+        title="Thiết lập loại chi"
         open={isCreate}
-        onOk={handleSaveRevenue}
+        onOk={handleSaveTypeExpense}
         onCancel={() => setIsCreate(false)}
       >
-        <div className="form-div">Tên khoản thu:</div>
+        <div className="form-div">Loại chi: </div>
         <Input
           className="input-create"
           onChange={(event) =>
-            setNewRevenue({
-              ...newRevenue,
-              revenue: event.target.value,
+            setNewTypeExpense({
+              ...newTypeExpense,
+              expense: event.target.value,
             })
           }
-          placeholder="Nhập tên khoản thu"
+          placeholder="Nhập loại chi"
         />
         <div className="form-div">Số tiền thu:</div>
         <Input
           className="input-create"
           onChange={(event) =>
-            setNewRevenue({
-              ...newRevenue,
+            setNewTypeExpense({
+              ...newTypeExpense,
               money: Number(event.target.value) || 0,
             })
           }
@@ -89,4 +87,4 @@ const RevenueList = () => {
   );
 };
 
-export default RevenueList;
+export default TypeExpenseList;

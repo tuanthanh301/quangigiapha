@@ -8,7 +8,6 @@ import { BackGroundLogin } from "./loginPageStyle";
 const LoginPage = () => {
   const [inforLogin, setInforLogin] = useState();
   const listAccount = useSelector((state) => state.auth.listAccount);
-  // console.log("listAccount", listAccount);
 
 
   const dispatch = useDispatch();
