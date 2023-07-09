@@ -9,6 +9,7 @@ import CollectMoney from "./CollectMoney";
 import Event from "./Event";
 import Expenses from "./Expenses";
 import { FinancialStyle } from "./financialStyle";
+import Report from "./Report";
 const { Content, Sider } = Layout;
 
 const menuItem = ["Tài chính", "Sự kiện", "Tài khoản"];
@@ -77,7 +78,7 @@ const Financial = () => {
             <Content className="content-tab">
               {screen === "Thu" && <CollectMoney />}
               {screen === "Chi" && <Expenses />}
-              {/* {screen === "Báo cáo" && } */}
+              {screen === "Báo cáo" && <Report/>}
               {screen === "Sự kiện" && <Event/>}
             </Content>
           </Layout>

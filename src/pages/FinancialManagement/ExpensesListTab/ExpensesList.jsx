@@ -22,7 +22,7 @@ const ExpensesList = () => {
    {
       expense: findMoneyOfExpense(newExpense?.idOfExpense).expense,
       money: findMoneyOfExpense(newExpense?.idOfExpense)?.money,
-      time: dayjs().format("YYYY/MM/DD")
+      dNt: dayjs().format("YYYY/MM/DD"),
     };
     dispatch(storeAddExpense(inforExpense));
     setNewExpense()
