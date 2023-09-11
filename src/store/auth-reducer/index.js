@@ -13,12 +13,13 @@ const initialState = {
       isOwner: true,
     },
     {
-      id: 1,
+      id: 2,
       firstName: "Nguyen",
       lastName: "Thanh",
       email: "thanh123@gmail.com",
       password: "123",
       confirmPassword: "123",
+      isOwner: false,
     },
   ],
 };

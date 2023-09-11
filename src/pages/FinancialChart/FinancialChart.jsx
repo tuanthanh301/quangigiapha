@@ -51,9 +51,10 @@ const FinancialChart = () => {
 
     // Sắp xếp mảng kết quả theo thứ tự tăng dần của ngày
     upcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
-
     // Trả về sự kiện gần nhất
+    console.log(upcomingEvents)
     return upcomingEvents[0];
+
   };
 
   return (
@@ -83,8 +84,8 @@ const FinancialChart = () => {
         />
         <ItemTotal
           color="#0984e3"
-          date={getUpcomingEvent(dataEvent).date}
-          title={getUpcomingEvent(dataEvent).name}
+          // date={getUpcomingEvent(dataEvent).date}
+          // title={getUpcomingEvent(dataEvent).name}
           des="Sự kiện sắp tới"
         />
       </TotalWrapper>

@@ -20,11 +20,11 @@ const Report = () => {
       label: `Biểu đồ báo cáo`,
       children: <FinancialChart />,
     },
-    {
-      key: "2",
-      label: `Danh sách thu chi`,
-      children: <FinancialReport />,
-    },
+    // {
+    //   key: "2",
+    //   label: `Danh sách thu chi`,
+    //   children: <FinancialReport />,
+    // },
   ];
   return <Tabs defaultActiveKey="1" items={items} onChange={onChange} />;
 };

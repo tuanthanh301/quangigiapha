@@ -116,10 +116,10 @@ const ExpensesList = () => {
       <Table
         columns={columns}
         dataSource={data}
-        pagination={{ current: 1, pageSize: 5 }}
+        pagination={{ pageSize: 10 }}
       />
     </div>
   );
 };
-
+  
 export default ExpensesList;
