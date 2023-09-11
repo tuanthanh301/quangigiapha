@@ -116,7 +116,7 @@ const ExpensesList = () => {
       <Table
         columns={columns}
         dataSource={data}
-        pagination={{ pageSize: 10 }}
+        pagination={{ pageSize: 7 }}
       />
     </div>
   );

@@ -144,7 +144,7 @@ const Sponsor = () => {
       <Table
         columns={columns}
         dataSource={handleDataTable}
-        pagination={{ pageSize: 5 }}
+        pagination={{ pageSize: 7 }}
       />
     </div>
   );

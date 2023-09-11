@@ -99,7 +99,7 @@ const TypeExpenseList = () => {
           />
         </Modal>
       )}
-      <Table columns={columns} dataSource={data} pagination={{ pageSize: 5 }} />
+      <Table columns={columns} dataSource={data} pagination={{ pageSize: 7 }} />
     </div>
   );
 };
